@@ -11,10 +11,14 @@ type Props = {
    * Show this when marker is clicked.
    */
   popupContent?: ReactNode;
+  /**
+   * popup's options
+   */
+  popupOptions?: L.PopupOptions;
 };
 
 export function LMarker(props: Props) {
-  const { onClick, latlng, options, popupContent } = props;
+  const { onClick, latlng, options, popupContent, popupOptions } = props;
   const map = useMap();
 
   // For re-rendering, useState instead of useRef.
@@ -33,7 +37,10 @@ export function LMarker(props: Props) {
     });
 
     if (popupContent) {
-      const popup = L.popup({ content: L.DomUtil.create("div") });
+      const popup = L.popup({
+        content: L.DomUtil.create("div"),
+        ...popupOptions,
+      });
       marker.bindPopup(popup);
       setContainer(popup.getContent() as HTMLElement);
     }
@@ -44,7 +51,7 @@ export function LMarker(props: Props) {
       marker.off();
       marker.remove();
     };
-  }, [map, latlng, options, popupContent, onClick]);
+  }, [map, latlng, options, popupContent, popupOptions, onClick]);
 
   console.log(popupContent, container);
 
