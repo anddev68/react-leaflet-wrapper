@@ -9,7 +9,7 @@ This is under construction, so do not use for production.
 At first, install dependencies.
 
 ```
-install
+pnpm install @anddev68/react-leaflet-wrapper # no packages now. plasease wait.
 ```
 
 Next, write your code. For example,
